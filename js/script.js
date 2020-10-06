@@ -1,4 +1,1 @@
-alert("Hello World");
-
-let favoriteFood = "Chicken Quesadillas";
-document.write(favoriteFood);
+var pokemonList = [{name:}, {name:}, {name:}, {name:}, {name:}, {name:}, {name:}];

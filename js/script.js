@@ -29,28 +29,6 @@ let pokemonRepo = (function () {
     },
   ];
 
-  // pokemonList.forEach(function (pokemon) {
-  //   console.log(
-  //     "Name: " +
-  //       pokemon.name +
-  //       " , Height: " +
-  //       pokemon.height +
-  //       " , Type: " +
-  //       pokemon.type
-  //   );
-  //   document.write(
-  //     "<p class='pokemon'>" +
-  //       "Name: " +
-  //       pokemon.name +
-  //       " , Height: " +
-  //       pokemon.height +
-  //       " , Type: " +
-  //       pokemon.type +
-  //       "</p>"
-  //   );
-  // });
-
-  //Cant seem to get this to work the right way Im goin kind of crazy :/ right now :)
   function add(pokemon) {
     if (
       typeof pokemon === "object" &&
@@ -66,6 +44,8 @@ let pokemonRepo = (function () {
     const search = pokemonList.filter((pokemon) => pokemon.name === name);
     return search;
   }
+
+  // testing git
 
   function getAll() {
     return pokemonList;
@@ -98,13 +78,3 @@ pokemonRepo.getAll().forEach((pokemon) => {
       "</p>"
   );
 });
-
-// pokemonRepo.add({
-//   name: "potato",
-// });
-
-//Wasnt sure what it meant by having the forEachLoop inside and outside of the iife cause if i un comment the section below it says the list isnt defined since it has been put locally in the iife
-
-// pokemonList.forEach(function (pokemon) {
-//   );
-// });

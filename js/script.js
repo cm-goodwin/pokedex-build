@@ -1,4 +1,4 @@
-let pokemonRepository = (function () {
+let pokemonRepo = (function () {
   let pokemonList = [
     {
       name: "Combusken",
@@ -29,29 +29,42 @@ let pokemonRepository = (function () {
     },
   ];
 
-  pokemonList.forEach(function (pokemon) {
-    console.log(
-      "Name: " +
-        pokemon.name +
-        " , Height: " +
-        pokemon.height +
-        " , Type: " +
-        pokemon.type
-    );
-    document.write(
-      "<p class='pokemon'>" +
-        "Name: " +
-        pokemon.name +
-        " , Height: " +
-        pokemon.height +
-        " , Type: " +
-        pokemon.type +
-        "</p>"
-    );
-  });
+  // pokemonList.forEach(function (pokemon) {
+  //   console.log(
+  //     "Name: " +
+  //       pokemon.name +
+  //       " , Height: " +
+  //       pokemon.height +
+  //       " , Type: " +
+  //       pokemon.type
+  //   );
+  //   document.write(
+  //     "<p class='pokemon'>" +
+  //       "Name: " +
+  //       pokemon.name +
+  //       " , Height: " +
+  //       pokemon.height +
+  //       " , Type: " +
+  //       pokemon.type +
+  //       "</p>"
+  //   );
+  // });
+
   //Cant seem to get this to work the right way Im goin kind of crazy :/ right now :)
   function add(pokemon) {
-    pokemonList.push(pokemon);
+    if (
+      typeof pokemon === "object" &&
+      Object.keys(pokemon) !== "name" &&
+      Object.keys(pokemon) !== "height" &&
+      Object.keys(pokemon) !== "type"
+    ) {
+      pokemonList.push(pokemon);
+    }
+  }
+
+  function findByName(name) {
+    const search = pokemonList.filter((pokemon) => pokemon.name === name);
+    return search;
   }
 
   function getAll() {
@@ -59,14 +72,13 @@ let pokemonRepository = (function () {
   }
 
   return {
-    add: add,
-    getAll: getAll,
+    add,
+    getAll,
+    findByName,
   };
 })();
 
-//Wasnt sure what it meant by having the forEachLoop inside and outside of the iife cause if i un comment the section below it says the list isnt defined since it has been put locally in the iife
-
-/*pokemonList.forEach(function (pokemon) {
+pokemonRepo.getAll().forEach((pokemon) => {
   console.log(
     "Name: " +
       pokemon.name +
@@ -85,4 +97,14 @@ let pokemonRepository = (function () {
       pokemon.type +
       "</p>"
   );
-});*/
+});
+
+// pokemonRepo.add({
+//   name: "potato",
+// });
+
+//Wasnt sure what it meant by having the forEachLoop inside and outside of the iife cause if i un comment the section below it says the list isnt defined since it has been put locally in the iife
+
+// pokemonList.forEach(function (pokemon) {
+//   );
+// });

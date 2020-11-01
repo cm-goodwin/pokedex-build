@@ -1,7 +1,26 @@
+body {
+  background-image: url("../img/pkdxbg4.jpeg");
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .pokemon {
   font-size: 24px;
   padding: 5px;
   border: 0.5px solid black;
   background-color: lightgray;
   color: black;
+}
+
+.button {
+  padding: 5px;
+  font-size: medium;
+  margin: 0.5rem;
+}
+/*Search Bar*/
+.active-cyan-2 input[type="text"]:focus:not([readonly]) {
+  border-bottom: 1px solid #4dd0e1;
+  box-shadow: 2 1px 0 0 #4dd0e1;
 }

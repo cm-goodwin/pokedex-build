@@ -54,15 +54,16 @@ let pokemonRepo = (function () {
     button.classList.add("btn-dark");
     1;
     button.classList.add("button");
-    button.addEventListener("click", function () {
-      console.log(showDetails);
+    button.addEventListener("click", function (showDetails) {
+      console.log(pokemon);
     });
     pokeList.appendChild(button);
     pokeList.appendChild(listItem);
   }
-  //Should show details on pokemon but I might of written the code wrong
+  //Show details function
   function showDetails(pokemon) {
-    console.log({ pokemon });
+    console.log(pokemon);
+    return { pokemon };
   }
 
   return {

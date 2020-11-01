@@ -28,53 +28,52 @@ let pokemonRepo = (function () {
       type: ["Dragon", "Flying"],
     },
   ];
-
+  //Adds pokemon
   function add(pokemon) {
-    if (
-      typeof pokemon === "object" &&
-      Object.keys(pokemon) !== "name" &&
-      Object.keys(pokemon) !== "height" &&
-      Object.keys(pokemon) !== "type"
-    ) {
+    if (typeof pokemon === "object" && "name" in pokemon) {
       pokemonList.push(pokemon);
-    }
+    } else console.log("Pokemon is not correct");
   }
-
+  //Lets you search by name
   function findByName(name) {
     const search = pokemonList.filter((pokemon) => pokemon.name === name);
     return search;
   }
-
-  // testing git
-
+  //Retrieves the whole array of data
   function getAll() {
     return pokemonList;
+  }
+  //Adds pokemon to list
+  function addListItem(pokemon) {
+    let pokeList = document.querySelector("ul");
+    let listItem = document.createElement("li");
+    //Adds a button and an event listener
+    let button = document.createElement("button");
+    button.innerText = pokemon.name;
+    button.classList.add("btn");
+    button.classList.add("btn-dark");
+    1;
+    button.classList.add("button");
+    button.addEventListener("click", function () {
+      console.log(showDetails);
+    });
+    pokeList.appendChild(button);
+    pokeList.appendChild(listItem);
+  }
+  //Should show details on pokemon but I might of written the code wrong
+  function showDetails(pokemon) {
+    console.log({ pokemon });
   }
 
   return {
     add,
     getAll,
     findByName,
+    addListItem,
+    showDetails,
   };
 })();
 
 pokemonRepo.getAll().forEach((pokemon) => {
-  console.log(
-    "Name: " +
-      pokemon.name +
-      " , Height: " +
-      pokemon.height +
-      " , Type: " +
-      pokemon.type
-  );
-  document.write(
-    "<p class='pokemon'>" +
-      "Name: " +
-      pokemon.name +
-      " , Height: " +
-      pokemon.height +
-      " , Type: " +
-      pokemon.type +
-      "</p>"
-  );
+  pokemonRepo.addListItem(pokemon);
 });

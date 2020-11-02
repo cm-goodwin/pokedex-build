@@ -54,8 +54,9 @@ let pokemonRepo = (function () {
     button.classList.add("btn-dark");
     1;
     button.classList.add("button");
-    button.addEventListener("click", function (showDetails) {
-      console.log(pokemon);
+    button.addEventListener("click", function () {
+      console.log("Calling to show details");
+      showDetails(pokemon);
     });
     pokeList.appendChild(button);
     pokeList.appendChild(listItem);
@@ -63,7 +64,6 @@ let pokemonRepo = (function () {
   //Show details function
   function showDetails(pokemon) {
     console.log(pokemon);
-    return { pokemon };
   }
 
   return {

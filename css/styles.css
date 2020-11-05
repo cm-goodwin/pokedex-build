@@ -13,12 +13,14 @@ body {
 }
 
 .button {
-  padding: 5px;
+  padding: 4px;
   font-size: medium;
-  margin: 0.5rem;
+  margin: 1rem;
 }
+
 /*Search Bar*/
 .active-cyan-2 input[type="text"]:focus:not([readonly]) {
   border-bottom: 1px solid #4dd0e1;
   box-shadow: 2 1px 0 0 #4dd0e1;
+  display: block;
 }

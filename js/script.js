@@ -1,6 +1,8 @@
 let pokemonRepo = (function () {
   let pokemonList = [];
   let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
+  let modalContainer = document.querySelector("#modal-container");
+  modalContainer.innerHTML = "";
 
   //Adds pokemon
   function add(pokemon) {
@@ -15,8 +17,7 @@ let pokemonRepo = (function () {
 
   //Lets you search by name
   function findByName(name) {
-    const search = pokemonList.filter((pokemon) => pokemon.name === name);
-    return search;
+    return pokemonList.filter((pokemon) => pokemon.name === name);
   }
 
   //Retrieves the whole array of data
@@ -28,6 +29,7 @@ let pokemonRepo = (function () {
   function addListItem(pokemon) {
     let pokemonList = document.querySelector(".pokemon-list");
     let listpokemon = document.createElement("li");
+
     let button = document.createElement("button");
     button.innerText = pokemon.name;
     button.classList.add("btn");
@@ -69,30 +71,101 @@ let pokemonRepo = (function () {
       .then(function (details) {
         // Adding the details to the item
         item.imageUrl = details.sprites.front_default;
-        item.imageUrl = details.sprites.front_shiny;
+        item.imageUrlShiny = details.sprites.front_shiny;
         item.height = details.height;
         item.types = details.types;
       })
       .catch(function (e) {
         console.error(e);
+        let container = document.querySelector("#image-container");
+        let myImage = document.createElement("img");
+        myImage.src = item.imageUrl;
+
+        container.appendChild(myImage);
       });
   }
 
   //Show details function
+
+  //Modal
+  function showModal(title, text) {
+    let modal = document.createElement("div");
+    modal.classList.add("modal");
+
+    let closeButtonElement = document.createElement("button");
+    closeButtonElement.classList.add("modal-close");
+    closeButtonElement.innerText = "Close";
+    closeButtonElement.addEventListener("click", hideModal);
+    let titleElement = document.createElement("h1");
+    titleElement.innerText = title;
+    let contentElement = document.createElement("p");
+    contentElement.innerText = text;
+    modal.appendChild(closeButtonElement);
+    modal.appendChild(titleElement);
+    modal.appendChild(contentElement);
+    modalContainer.appendChild(modal);
+
+    modalContainer.classList.add("is-visible");
+  }
+  //shows modal on click
+  document.querySelector("#show-modal").addEventListener("click", () => {
+    showModal("Modal Title", "This is the modal content!");
+  });
+  //hides modal
+  function hideModal() {
+    modalContainer.classList.remove("is-visible");
+  }
+
+  function showDialog(title, text) {
+    showModal(title, text);
+
+    //adds confirm and cancel buttons to modal
+
+    let modal = modalContainer.querySelector(".modal");
+
+    let confirmButton = document.createElement("button");
+    confirmButton.classList.add("modal-confirm");
+    confirmButton.innerText = "Confirm";
+
+    let cancelButton = document.createElement("button");
+    cancelButton.classList.add("modal-cancel");
+    cancelButton.innerText = "Cancel";
+
+    modal.appendChild(confirmButton);
+    modal.appendChild(cancelButton);
+
+    // We want to focus the confirmButton so that the user can simply press Enter
+    confirmButton.focus();
+  }
+
+  //escape key hides modal
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
+      hideModal();
+    }
+  });
+  //click anywhere to close modal
+
+  modalContainer.innerHTML = "";
+  modalContainer.addEventListener("click", (e) => {
+    let target = e.target;
+    if (target === modalContainer) {
+      hideModal();
+    }
+  });
+
   function showDetails(item) {
     loadDetails(item).then(function () {
+      showModal(item.name, item.height);
       console.log(item);
     });
   }
-
   return {
     loadList: loadList,
     add: add,
     getAll: getAll,
-    findByName: findByName,
     addListItem: addListItem,
     loadDetils: loadDetails,
-    showDetails: showDetails,
   };
 })();
 

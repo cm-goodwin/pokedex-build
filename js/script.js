@@ -28,15 +28,15 @@ let pokemonRepo = (function () {
   //Adds pokemon to list
   function addListItem(pokemon) {
     let pokemonList = document.querySelector(".pokemon-list");
-    let listpokemon = document.createElement("li");
+    let listPokemon = document.createElement("li");
 
     let button = document.createElement("button");
     button.innerText = pokemon.name;
     button.classList.add("btn");
     button.classList.add("btn-dark");
     button.classList.add("button");
-    listpokemon.appendChild(button);
-    pokemonList.appendChild(listpokemon);
+    listPokemon.appendChild(button);
+    pokemonList.appendChild(listPokemon);
     button.addEventListener("click", function (event) {
       showDetails(pokemon);
     });
@@ -70,9 +70,11 @@ let pokemonRepo = (function () {
       })
       .then(function (details) {
         // Adding the details to the item
+        item.name = details.name;
         item.imageUrl = details.sprites.front_default;
         item.imageUrlShiny = details.sprites.front_shiny;
         item.height = details.height;
+        item.weight = details.weight;
         item.types = details.types;
       })
       .catch(function (e) {
@@ -88,7 +90,27 @@ let pokemonRepo = (function () {
   //Show details function
 
   //Modal
-  function showModal(title, text) {
+  // function showModal(title, text) {
+  //   let modal = document.createElement("div");
+  //   modal.classList.add("modal");
+
+  //   let closeButtonElement = document.createElement("button");
+  //   closeButtonElement.classList.add("modal-close");
+  //   closeButtonElement.innerText = "Close";
+  //   closeButtonElement.addEventListener("click", hideModal);
+  //   let titleElement = document.createElement("h1");
+  //   titleElement.innerText = title;
+  //   let contentElement = document.createElement("p");
+  //   contentElement.innerText = text;
+  //   modal.appendChild(closeButtonElement);
+  //   modal.appendChild(titleElement);
+  //   modal.appendChild(contentElement);
+  //   modalContainer.appendChild(modal);
+
+  //   modalContainer.classList.add("is-visible");
+  // }
+
+  function showModal(item) {
     let modal = document.createElement("div");
     modal.classList.add("modal");
 
@@ -96,21 +118,30 @@ let pokemonRepo = (function () {
     closeButtonElement.classList.add("modal-close");
     closeButtonElement.innerText = "Close";
     closeButtonElement.addEventListener("click", hideModal);
+
     let titleElement = document.createElement("h1");
-    titleElement.innerText = title;
+    titleElement.innerText = item.name || "";
+
     let contentElement = document.createElement("p");
-    contentElement.innerText = text;
+    contentElement.innerText = `height: ${item.height}
+    weight: ${item.weight}`;
+
+    let imageElementFront = document.createElement("img");
+    imageElementFront.setAttribute("src", item.imageUrl);
+
+    let imageElementBack = document.createElement("img");
+    imageElementBack.setAttribute("src", item.imageUrlShiny);
+
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
     modal.appendChild(contentElement);
-    modalContainer.appendChild(modal);
+    modal.appendChild(imageElementFront);
+    modal.appendChild(imageElementBack);
 
+    modalContainer.appendChild(modal);
     modalContainer.classList.add("is-visible");
   }
-  //shows modal on click
-  document.querySelector("#show-modal").addEventListener("click", () => {
-    showModal("Modal Title", "This is the modal content!");
-  });
+
   //hides modal
   function hideModal() {
     modalContainer.classList.remove("is-visible");
@@ -156,7 +187,7 @@ let pokemonRepo = (function () {
 
   function showDetails(item) {
     loadDetails(item).then(function () {
-      showModal(item.name, item.height);
+      showModal(item);
       console.log(item);
     });
   }
@@ -165,7 +196,9 @@ let pokemonRepo = (function () {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
-    loadDetils: loadDetails,
+    loadDetails: loadDetails,
+    findByName: findByName,
+    showDialog: showDialog,
   };
 })();
 

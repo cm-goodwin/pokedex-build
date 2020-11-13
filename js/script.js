@@ -72,6 +72,7 @@ let pokemonRepo = (function () {
         // Adding the details to the item
         item.name = details.name;
         item.imageUrl = details.sprites.front_default;
+        item.imageUrlBack = details.sprites.back_default;
         item.imageUrlShiny = details.sprites.front_shiny;
         item.height = details.height;
         item.weight = details.weight;
@@ -86,29 +87,6 @@ let pokemonRepo = (function () {
         container.appendChild(myImage);
       });
   }
-
-  //Show details function
-
-  //Modal
-  // function showModal(title, text) {
-  //   let modal = document.createElement("div");
-  //   modal.classList.add("modal");
-
-  //   let closeButtonElement = document.createElement("button");
-  //   closeButtonElement.classList.add("modal-close");
-  //   closeButtonElement.innerText = "Close";
-  //   closeButtonElement.addEventListener("click", hideModal);
-  //   let titleElement = document.createElement("h1");
-  //   titleElement.innerText = title;
-  //   let contentElement = document.createElement("p");
-  //   contentElement.innerText = text;
-  //   modal.appendChild(closeButtonElement);
-  //   modal.appendChild(titleElement);
-  //   modal.appendChild(contentElement);
-  //   modalContainer.appendChild(modal);
-
-  //   modalContainer.classList.add("is-visible");
-  // }
 
   function showModal(item) {
     let modal = document.createElement("div");
@@ -130,13 +108,17 @@ let pokemonRepo = (function () {
     imageElementFront.setAttribute("src", item.imageUrl);
 
     let imageElementBack = document.createElement("img");
-    imageElementBack.setAttribute("src", item.imageUrlShiny);
+    imageElementBack.setAttribute("src", item.imageUrlBack);
+
+    let imageElementShiny = document.createElement("img");
+    imageElementShiny.setAttribute("src", item.imageUrlShiny);
 
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
     modal.appendChild(contentElement);
     modal.appendChild(imageElementFront);
     modal.appendChild(imageElementBack);
+    modal.appendChild(imageElementShiny);
 
     modalContainer.appendChild(modal);
     modalContainer.classList.add("is-visible");

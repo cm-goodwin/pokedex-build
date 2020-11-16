@@ -32,9 +32,8 @@ let pokemonRepo = (function () {
 
     let button = document.createElement("button");
     button.innerText = pokemon.name;
-    button.classList.add("btn");
-    button.classList.add("btn-dark");
-    button.classList.add("button");
+    button.classList.add("button", "btn", "btn-dark");
+    listPokemon.classList.add("group-list-item");
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);
     button.addEventListener("click", function (event) {
@@ -88,6 +87,20 @@ let pokemonRepo = (function () {
       });
   }
 
+  //Shows Modal
+  // function showModal(item) {
+  //   let modalBody = $(".modal-body");
+  //   let modalTitle = $(".modal-title");
+  //   let modalHeader = $(".modal-header");
+
+  //   modalTitle.empty();
+  //   modalBody.empty();
+
+  //   let nameElement = $("<h1>" + item.name + "</h1>");
+
+  //   modalTitle.append(nameElement);
+  // }
+
   function showModal(item) {
     let modal = document.createElement("div");
     modal.classList.add("modal");
@@ -129,28 +142,6 @@ let pokemonRepo = (function () {
     modalContainer.classList.remove("is-visible");
   }
 
-  function showDialog(title, text) {
-    showModal(title, text);
-
-    //adds confirm and cancel buttons to modal
-
-    let modal = modalContainer.querySelector(".modal");
-
-    let confirmButton = document.createElement("button");
-    confirmButton.classList.add("modal-confirm");
-    confirmButton.innerText = "Confirm";
-
-    let cancelButton = document.createElement("button");
-    cancelButton.classList.add("modal-cancel");
-    cancelButton.innerText = "Cancel";
-
-    modal.appendChild(confirmButton);
-    modal.appendChild(cancelButton);
-
-    // We want to focus the confirmButton so that the user can simply press Enter
-    confirmButton.focus();
-  }
-
   //escape key hides modal
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
@@ -180,7 +171,6 @@ let pokemonRepo = (function () {
     addListItem: addListItem,
     loadDetails: loadDetails,
     findByName: findByName,
-    showDialog: showDialog,
   };
 })();
 

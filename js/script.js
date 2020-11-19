@@ -75,7 +75,10 @@ let pokemonRepo = (function () {
         item.imageUrlBack = details.sprites.back_default;
         item.height = details.height;
         item.weight = details.weight;
-        item.types = details.types;
+        item.types = [];
+        for (let i = 0; i < details.types.length; i++) {
+          item.types.push(" " + details.types[i].type.name);
+        }
       })
       .catch(function (e) {
         console.error(e);
@@ -94,7 +97,7 @@ let pokemonRepo = (function () {
     modalTitle.empty(); //empty the title - this is important as they may add up
     modalBody.empty(); //empty the body - this is important as they may add up
 
-    let nameElement = $("<h1>" + item.name + "</h1>");
+    let nameElement = $("<h1 >" + item.name + "</h1>");
     //Creating an image element
     let imageElementFront = $('<img class="modal-img" style="width:50%">');
     imageElementFront.attr("src", item.imageUrl);
@@ -105,12 +108,14 @@ let pokemonRepo = (function () {
     let heightElement = $("<p> " + "height : " + item.height + "</p>");
     //creating element for weight in modal content
     let weightElement = $("<p>" + "weight : " + item.weight + "</p>");
+    let typeElement = $("<p>" + "type : " + item.types + "</p>");
 
     modalTitle.append(nameElement);
     modalBody.append(imageElementFront);
     modalBody.append(imageElementBack);
     modalBody.append(heightElement);
     modalBody.append(weightElement);
+    modalBody.append(typeElement);
   }
 
   //calls data to modal and console

@@ -17,7 +17,6 @@ body {
   font-size: medium;
   margin: 1rem;
 }
-
-.modal-content {
-  text-decoration: capitalize;
+.pokemon-list {
+  text-transform: capitalize;
 }
